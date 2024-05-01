@@ -15,11 +15,13 @@ export const ArticleApp = () => {
   const [favorites, setFavorites] = useState(
     () => JSON.parse(window.localStorage.getItem("favorites")) || []
   );
-  const [selectedTab, setSelectedTab] = useState(() => JSON.parse(window.localStorage.getItem('page')) || "home");
+  const [selectedTab, setSelectedTab] = useState(
+    () => JSON.parse(window.localStorage.getItem("page")) || "home"
+  );
   const [isOpen, setIsOpen] = useState(false);
-  const [searchStr, setSearchStr] = useState('')
-
-// #region useEffect
+  const [searchStr, setSearchStr] = useState("");
+  const [sortType, setSortType] = useState("");
+  // #region useEffect
   useEffect(() => {
     window.localStorage.setItem("articles", JSON.stringify(articles));
   }, [articles]);
@@ -27,9 +29,9 @@ export const ArticleApp = () => {
     window.localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
   useEffect(() => {
-    window.localStorage.setItem('page', JSON.stringify(selectedTab))
-  }, [selectedTab])
-// #endregion useEffect
+    window.localStorage.setItem("page", JSON.stringify(selectedTab));
+  }, [selectedTab]);
+  // #endregion useEffect
 
   const handleDeleteArticle = (id) => {
     setArticles((prev) => prev.filter((item) => item.id !== id));
@@ -53,14 +55,33 @@ export const ArticleApp = () => {
     setArticles((prev) => [...prev, newArticle]);
     closeModal();
   };
-const filteredArticles = articles.filter(article=>article.title.toLowerCase().includes(searchStr.trim().toLowerCase()) || article.body.toLowerCase().includes(searchStr.trim().toLowerCase()))
-  
+  const filteredArticles = articles.filter(
+    (article) =>
+      article.title.toLowerCase().includes(searchStr.trim().toLowerCase()) ||
+      article.body.toLowerCase().includes(searchStr.trim().toLowerCase())
+  );
+  const sortedArcticles = () => {
+    switch (sortType) {
+      case "newest":
+        return filteredArticles.sort((a, b) => a.createdAt - b.createdAt);
+      case "oldest":
+        return filteredArticles.sort((a, b) => b.createdAt - a.createdAt);
+      case "a-z":
+        return filteredArticles.sort((a, b) => a.title.localeCompare(b.title));
+      case "z-a":
+        return filteredArticles.sort((a, b) => b.title.localeCompare(a.title));
+      default:
+        return filteredArticles;
+    }
+  };
   return (
     <div className={s.wrapperMain}>
       <SideBar setSelectedTab={setSelectedTab} openModal={openModal} />
       {selectedTab === "home" && (
-        <List setSearchStr={setSearchStr}
-          articles={filteredArticles}
+        <List
+          setSearchStr={setSearchStr}
+          setSortType={setSortType}
+          articles={sortedArcticles()}
           handleDeleteArticle={handleDeleteArticle}
           handleAddToFavorites={handleAddToFavorites}
         />
