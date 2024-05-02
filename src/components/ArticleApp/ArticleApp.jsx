@@ -7,6 +7,7 @@ import { Favorites } from "./Favorites";
 import { Modal } from "../Modal/Modal";
 import { AddArticleForm } from "./AddArticleForm";
 import { nanoid } from "nanoid";
+import { AnimatePresence } from "framer-motion";
 
 export const ArticleApp = () => {
   const [articles, setArticles] = useState(
@@ -92,11 +93,13 @@ export const ArticleApp = () => {
           handleDeleteArticle={handleDeleteFromFavorites}
         />
       )}
-      {isOpen && (
-        <Modal onClose={closeModal} title="Add article">
-          <AddArticleForm handleAddArticle={handleAddArticle} />
-        </Modal>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <Modal onClose={closeModal} title="Add article">
+            <AddArticleForm handleAddArticle={handleAddArticle} />
+          </Modal>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
