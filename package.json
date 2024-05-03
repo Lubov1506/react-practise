@@ -10,13 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.1.7",
     "modern-normalize": "^2.0.0",
     "nanoid": "^5.0.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-tabs": "^6.0.2"
+    "react-hook-form": "^7.51.3",
+    "react-tabs": "^6.0.2",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
