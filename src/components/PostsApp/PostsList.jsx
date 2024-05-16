@@ -1,7 +1,8 @@
 import s from './PostsApp.module.css'
 import { Post } from "./Post"
 
-export const PostsList = ({ posts}) => {
+export const PostsList = ({ posts }) => {
+    console.log(posts);
   return (
       <ul className={s.list}>
           {posts.map(item => {

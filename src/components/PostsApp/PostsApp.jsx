@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllPosts, getPostsByQuery } from "./api";
 import { PostsList } from "./PostsList";
 import { useInView } from "react-intersection-observer";
+import { SearchBar } from "./SearchBar";
 
 export const PostsApp = () => {
   const [posts, setPosts] = useState([]);
@@ -11,7 +12,7 @@ export const PostsApp = () => {
   const [skip, setSkip] = useState(0);
   const [searchValue, setSearchVaalue] = useState("");
     const [total, setTotal] = useState(0);
-    const [infinity, setInfinity] = useState(false)
+    const [infinity, setInfinity] = useState(true)
 
   const { ref, inView } = useInView({
     threshold: 1,
@@ -39,17 +40,22 @@ export const PostsApp = () => {
     getData();
   }, [limit, searchValue, skip]);
 
-  useEffect(() => {
-      infinity && setSkip((prev) => prev + limit);
-      console.log(infinity);
-  }, [inView, infinity, limit]);
+//   useEffect(() => {
+//       infinity && setSkip((prev) => prev + limit);
+//       console.log(infinity);
+//   }, [inView, infinity, limit]);
     
   const handleSkip = () => {
     setSkip((prev) => prev + limit);
   };
-
+	const handleSetQuery = query => {
+		setSearchVaalue(query)
+		setPosts([])
+		setSkip(0)
+	}
   return (
-    <div>
+      <div>
+          <SearchBar setSearchVaalue={ handleSetQuery} />
       {loading && <p>Loading ...</p>}
 
           {posts.length ? <PostsList posts={posts} /> : null}

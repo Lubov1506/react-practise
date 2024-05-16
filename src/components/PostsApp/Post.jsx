@@ -1,4 +1,4 @@
-import { cutText } from "../helpers/cutText";
+import { cutText } from "../../helpers/cutText";
 import s from "./PostsApp.module.css";
 export const Post = ({ item }) => {
   return (
