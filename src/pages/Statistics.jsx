@@ -1,7 +1,10 @@
 
 const Statistics = () => {
   return (
-    <div>Statistics</div>
+    <div>
+      <h1 className="text-3xl font-bold text-center">Statistics</h1>
+      
+    </div>
   )
 }
 
