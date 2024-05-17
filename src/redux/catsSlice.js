@@ -10,7 +10,7 @@ const slice = createSlice({
   initialState,
   selectors: {
     selectIncome: (state) => state.income,
-    selectExpence: (state) => state.expence,
+    selectExpense: (state) => state.expence,
   },
   reducers: {
     // addCatsReducer: (state, { payload }) => {
@@ -21,4 +21,4 @@ const slice = createSlice({
   },
 });
 export const catsReducer = slice.reducer;
-export const { selectIncome, selectExpence } = slice.selectors;
+export const { selectIncome, selectExpense } = slice.selectors;

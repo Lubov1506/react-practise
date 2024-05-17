@@ -1,10 +1,12 @@
+import { useSelector } from "react-redux";
 import Item from "./Item";
+import { selectTransactions } from "../redux/transactionSlice";
 
 const Table = () => {
+  const transactions = useSelector(selectTransactions);
   return (
     <div className="overflow-x-auto w-full">
       <table className="table">
-        {/* head */}
         <thead className="text-2xl font-bold">
           <tr>
             <th></th>
@@ -17,10 +19,9 @@ const Table = () => {
           </tr>
         </thead>
         <tbody className="text-xl">
-     <Item/>
-     <Item/>
-     <Item/>
-     <Item/>
+          {transactions.map((item, idx) => {
+            return <Item key={item.id} item={item} idx={idx} />;
+          })}
         </tbody>
       </table>
     </div>
