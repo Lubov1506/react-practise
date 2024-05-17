@@ -1,25 +1,15 @@
 import { useDispatch } from "react-redux";
 import { NavLink, Outlet } from "react-router-dom";
 import { logout } from "../redux/authSlice";
+import Navbar from "./Navbar";
 
 const Layout = () => {
   const dispatch = useDispatch();
   return (
     <div className="flex flex-col min-h-screen">
-      <header>
-        <section>
-          <h1>Budget tracker</h1>
-          <p>Balance: 20 000</p>
-        </section>
-        <nav>
-          <NavLink to="/">Dashboard</NavLink>
-          <NavLink to="/statistics">Statistics</NavLink>
-          <NavLink to="/add-transaction">Add transaction</NavLink>
-        </nav>
-        <button onClick={() => dispatch(logout())} className="btn btn-error">
-          Logout
-        </button>
-      </header>
+
+
+      <Navbar/>
       <main className="flex-grow">
         <Outlet />
       </main>
