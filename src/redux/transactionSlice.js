@@ -14,8 +14,14 @@ const slice = createSlice({
     selectTransactions: (state) => state.transactions,
     selectBalance: (state) =>
       state.transactions.reduce((total, current) => total + current.sum, 0),
-    selectIncome: (state) => state.totalIncome,
-    selectExpense: (state) => state.totalExpence,
+    selectIncome: (state) =>
+      state.transactions
+        .filter((item) => item.type === "Income")
+        .reduce((acc, item) => acc + item.sum, 0),
+    selectExpense: (state) =>
+      state.transactions
+        .filter((item) => item.type === "Expense")
+        .reduce((acc, item) => acc + item.sum, 0),
   },
   reducers: {
     addTransaction: (state, action) => {
@@ -31,4 +37,9 @@ const slice = createSlice({
 
 export const transactionsReducer = slice.reducer;
 export const { addTransaction, deleteTransaction } = slice.actions;
-export const { selectTransactions, selectBalance } = slice.selectors;
+export const {
+  selectTransactions,
+  selectBalance,
+  selectIncome,
+  selectExpense,
+} = slice.selectors;

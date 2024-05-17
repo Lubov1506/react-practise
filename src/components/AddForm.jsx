@@ -6,16 +6,15 @@ import { selectExpense, selectIncome } from "../redux/catsSlice";
 import { addTransaction } from "../redux/transactionSlice";
 import { nanoid } from "nanoid";
 import { useNavigate } from "react-router-dom";
-
-
+import moment from "moment";
 
 const AddForm = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const income = useSelector(selectIncome);
   const expense = useSelector(selectExpense);
   const [startDate, setStartDate] = useState(new Date());
-
+  console.log(moment(new Date()).format("DD.mm.YYYY HH:mm:ss"));
   const initialValues = {
     sum: "",
     type: "Expense",
@@ -23,9 +22,16 @@ const AddForm = () => {
     comment: "",
   };
   const handleSubmit = (data) => {
-    const sum = data.type === 'Income' ? +data.sum : -data.sum
-    dispatch(addTransaction({ id: nanoid(), ...data, date: new Date(startDate), sum }))
-    navigate('/')
+    const sum = data.type === "Income" ? +data.sum : -data.sum;
+    dispatch(
+      addTransaction({
+        id: nanoid(),
+        ...data,
+        date: startDate.toISOString(),
+        sum,
+      })
+    );
+    navigate("/");
   };
 
   return (
@@ -101,7 +107,13 @@ const AddForm = () => {
               />
             </div>
             <div className="form-control mt-6 flex gap-2 flex-row">
-              <button type="button" className="btn btn-error flex-grow" onClick={()=>navigate('/')}>Cancel</button>
+              <button
+                type="button"
+                className="btn btn-error flex-grow"
+                onClick={() => navigate("/")}
+              >
+                Cancel
+              </button>
               <button type="submiy" className="btn btn-primary flex-grow">
                 Create transaction
               </button>

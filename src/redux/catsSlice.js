@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   income: ["salary", "present", "bonus", "freelance"],
-  expence: ["house", "products", "family", "entertaiment", "car", "helth"],
+  expense: ["house", "products", "family", "entertaiment", "car", "helth"],
 };
 
 const slice = createSlice({
